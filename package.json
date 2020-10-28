@@ -1,0 +1,21 @@
+{
+  "name": "starting-point-for-nodejs-express",
+  "version": "1.0.0",
+  "description": "Complete starting template to start building apps with nodejs and express. Routing and pug templating included.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon main.js"
+  },
+  "author": "Agam Choudhary",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.10",
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}

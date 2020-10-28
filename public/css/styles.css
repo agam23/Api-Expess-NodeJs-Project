@@ -1,0 +1,45 @@
+body {
+    height: 100%;
+}
+
+.body-content {
+    min-height: 80%;
+}
+
+.header {
+    display: block;
+    background-color: black;
+    opacity: .5;
+    min-height: 50px;
+    width: 100%;
+}
+
+.header>h1 {
+    text-align: center;
+    color: deepskyblue;
+    padding: 50px;
+}
+
+.page-title {
+    display: block;
+}
+
+.page-title>h4 {
+    margin-left: 10%;
+}
+
+.footer {
+    display: block;
+    background-color: aqua;
+    opacity: .7;
+    margin-top: -120px;
+    min-height: 50px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.footer>h3>a>img {
+    height: 1.2rem;
+    transform: translateY(4px);
+}
