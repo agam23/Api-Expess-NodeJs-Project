@@ -43,9 +43,21 @@ router.get('/users', async (req, res) => {
     }
 })
 
-//get user by id 
-router.get('/user/:id', getUser, (req, res) => {
-    res.json(res.user)
+//get user by emailId
+router.get('/userInfo', async (req, res) => {
+    let user
+
+    try {
+        console.log(req.query.email);
+        const user = await User.findOne({
+            email: req.query.email
+        })
+        res.json(user)
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
 })
 
 //add user 
@@ -75,6 +87,11 @@ router.post('/addUser', async (req, res) => {
 
 })
 
+//get user by emailId
+router.get('/user/:id', getUser, (req, res) => {
+    res.json(res.user)
+})
+
 //delete user
 router.delete('/user/:id', getUser, async (req, res) => {
     try {
@@ -95,6 +112,7 @@ async function getUser(req, res, next) {
     let user
 
     try {
+        console.log(req.params.id)
         user = await User.findById(req.params.id)
         if (user == null) {
             return res.status(404).json({
