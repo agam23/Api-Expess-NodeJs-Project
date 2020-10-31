@@ -54,8 +54,14 @@ router.post('/addUser', async (req, res) => {
     console.log(req.body)
 
     const user = new User({
-        name: req.body.name,
-        userId: req.body.userId
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userName: req.body.userName,
+        email: req.body.email,
+        contactNumber: req.body.contactNumber,
+        dob: req.body.dob,
+        sex: req.body.sex,
+        bio: req.body.bio
     })
 
     try {
