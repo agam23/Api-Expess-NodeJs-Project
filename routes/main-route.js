@@ -17,7 +17,7 @@ db.on('error', (error) => console.log("Db Connection: Success"))
 
 db.on('open', () => console.log("Db Connection: Success"))
 
-// home page route
+// API home page route
 router.get('/', function (req, res) {
     res.render('./pages/index', {
         title: 'Voga Vue',
@@ -25,13 +25,7 @@ router.get('/', function (req, res) {
     })
 })
 
-// define the about route
-router.get('/about', function (req, res) {
-    //if you dont want templating
-    res.send('<h1>About Page</h1>')
-})
-
-//get all user
+//get all users - for dev
 router.get('/users', async (req, res) => {
     try {
         const user = await User.find()

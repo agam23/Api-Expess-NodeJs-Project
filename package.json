@@ -1,7 +1,7 @@
 {
-  "name": "starting-point-for-nodejs-express",
+  "name": "Term-Research-Project-Api",
   "version": "1.0.0",
-  "description": "Complete starting template to start building apps with nodejs and express. Routing and pug templating included.",
+  "description": "Voya Vue API",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
