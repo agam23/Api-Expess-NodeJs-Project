@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 const mongoose = require("mongoose");
 const User = require('../model/user');
+const Post = require('../model/post');
 
 require('dotenv').config()
 
@@ -52,6 +53,53 @@ router.get('/userInfo', async (req, res) => {
             message: err.message
         })
     }
+})
+
+//get posts by userName
+router.get('/getPostsByUser', async (req, res) => {
+
+    try {
+        console.log(req.query.userName);
+        const posts = await Post.find({
+            userName: req.query.userName
+        })
+        res.json(posts)
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
+//add Post 
+router.post('/addPost', async (req, res) => {
+
+    console.log(req.body);
+
+    const post = new Post({
+        userName: req.body.userName,
+        img: req.body.img,
+        imgTitle: req.body.imgTitle,
+        imgLike: req.body.imgLike,
+        imgDesc: req.body.imgDesc,
+        imgTag: req.body.imgTag,
+        location: req.body.location,
+        bestTimeToVisit: req.body.bestTimeToVisit,
+        expenseToConsider: req.body.expenseToConsider,
+        isVerified: req.body.isVerified,
+        isPrivate: req.body.isPrivate
+    })
+
+    try {
+        const newPost = await post.save()
+        console.log(newPost)
+        res.status(201).json(newPost)
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+    }
+
 })
 
 //add user 

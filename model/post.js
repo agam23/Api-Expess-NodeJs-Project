@@ -6,20 +6,24 @@ const postSchema = new mongoose.Schema({
         required: true
 
     },
-    imageTitle: {
+    img: {
         type: String,
         required: true
     },
-    imageLike: {
+    imgTitle: {
+        type: String,
+        required: true
+    },
+    imgLike: {
         type: Number,
         required: true
 
     },
-    imageDesc: {
+    imgDesc: {
         type: String,
         required: true
     },
-    imgTags: {
+    imgTag: {
         type: String,
         required: true
 
