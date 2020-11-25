@@ -23,7 +23,7 @@ app.use('/', router);
 app.set('view engine', 'pug')
 
 //setting port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8081;
 
 //start listening at the configured port
 app.listen(port, '0.0.0.0', "localhost", () => {
