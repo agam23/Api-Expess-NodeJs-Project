@@ -13,19 +13,6 @@ app.use(express.json({
 
 var router = require('./routes/main-route')
 
-// express.bodyParser = {
-//     json: {
-//         limit: '50mb',
-//         extended: true
-//     },
-//     urlencoded: {
-//         limit: '50mb',
-//         extended: true
-//     }
-// };
-
-//"use" statements:
-
 //static folder (e.g. css files)
 app.use('/public', express.static('public'))
 
