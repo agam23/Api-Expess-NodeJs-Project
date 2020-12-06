@@ -3,11 +3,13 @@ var router = express.Router()
 const mongoose = require("mongoose");
 const User = require('../model/user');
 const Post = require('../model/post');
+const FriendList = require('../model/friendlist');
 
 require('dotenv').config()
 
 mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
 
 mongoose.set('useCreateIndex', true);
@@ -21,7 +23,7 @@ db.on('open', () => console.log("Db Connection: Success"))
 // API home page route
 router.get('/', function (req, res) {
     res.render('./pages/index', {
-        title: 'Voga Vue',
+        title: 'Voya Vue',
         message: 'Status: Running'
     })
 })
@@ -55,6 +57,30 @@ router.get('/userInfo', async (req, res) => {
     }
 })
 
+//get user profile details by username
+router.get('/userProfileInfo', async (req, res) => {
+
+    try {
+        console.log(req.query.email);
+        const post = await Post.find({
+            userName: req.query.userName
+        })
+
+        const friendList = await FriendList.find({
+            userName: req.query.email
+        })
+
+        res.json({
+            "numberOfPosts": post.length,
+            "numberOfFriends": friendList.length
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
 //get posts by userName
 router.get('/getPostsByUser', async (req, res) => {
 
@@ -63,6 +89,25 @@ router.get('/getPostsByUser', async (req, res) => {
         const posts = await Post.find({
             userName: req.query.userName
         })
+        res.json(posts)
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
+//get all Public posts
+router.get('/getAllPublicPosts', async (req, res) => {
+
+    try {
+        console.log(req.query.userName);
+        const posts = await Post.find({
+            isPrivate: false
+        })
+        if (posts.length == 0) {
+            res.status = 404;
+        }
         res.json(posts)
     } catch (err) {
         res.status(500).json({
@@ -92,12 +137,13 @@ router.post('/addPost', async (req, res) => {
 
     try {
         const newPost = await post.save()
-        console.log(newPost)
         res.status(201).json(newPost)
     } catch (error) {
         res.status(400).json({
             message: error.message
         })
+
+        console.log(error.message)
     }
 
 })
