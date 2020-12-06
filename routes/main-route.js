@@ -58,7 +58,7 @@ router.get('/userInfo', async (req, res) => {
 })
 
 //get user profile details by username
-router.get('/userProfileInfo', async (req, res) => {
+router.get('/getUserProfileInfo', async (req, res) => {
 
     try {
         console.log(req.query.email);
@@ -171,6 +171,42 @@ router.post('/addUser', async (req, res) => {
         res.status(400).json({
             message: error.message
         })
+    }
+
+})
+
+//Update User
+router.put('/updateUserInfo', async (req, res) => {
+
+    try {
+
+        const updateUser = await User.updateOne({
+            userName: req.body.userName
+        }, {
+            $set: {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                userName: req.body.userName,
+                email: req.body.email,
+                contactNumber: req.body.contactNumber,
+                dob: req.body.dob,
+                sex: req.body.sex,
+                bio: req.body.bio
+            }
+        })
+
+        let updatedUser = await User.findOne({
+            userName: req.body.userName
+        })
+
+        console.log(updatedUser)
+
+        res.status(200).json(updatedUser)
+    } catch (error) {
+        res.status(400).json({
+            message: error.message
+        })
+        console.log(error.message)
     }
 
 })
