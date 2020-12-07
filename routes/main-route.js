@@ -148,6 +148,24 @@ router.post('/addPost', async (req, res) => {
 
 })
 
+//get post by id
+router.get('/getPost', async (req, res) => {
+
+    try {
+        console.log(req.query.id);
+
+        const post = await Post.findOne({
+            _id: req.query.id
+        })
+
+        res.json(post)
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
 //add user 
 router.post('/addUser', async (req, res) => {
 
