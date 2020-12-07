@@ -306,7 +306,7 @@ router.get('/getAdminDashBoardDetails', async (req, res) => {
             "numberOfPosts": post.length,
             "numberOfUsers": user.length,
             "numberOfMaleUsers": maleUser.length,
-            "numberofFemaleUsers": femaleUser,
+            "numberOfFemaleUsers": femaleUser,
             "numberVerifiedPosts": verifiedPost.length
         })
     } catch (err) {
