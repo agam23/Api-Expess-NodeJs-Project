@@ -101,7 +101,7 @@ router.get('/getPostsByUser', async (req, res) => {
 router.get('/getAllPublicPosts', async (req, res) => {
 
     try {
-        console.log(req.query.userName);
+
         const posts = await Post.find({
             isPrivate: false
         })
@@ -153,9 +153,62 @@ router.get('/getPost', async (req, res) => {
 
     try {
         console.log(req.query.id);
-
         const post = await Post.findOne({
             _id: req.query.id
+        })
+
+        const postUpdate = await Post.updateOne({
+            _id: req.query.id
+        }, {
+            $inc: {
+                imgViews: 1
+            }
+        })
+
+        res.json(post)
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
+//delete post by id
+router.delete('/deletePost', async (req, res) => {
+
+    try {
+        console.log(req.query.id);
+        const post = await Post.findByIdAndDelete({
+            _id: req.query.id
+        })
+
+        res.json(post)
+
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
+})
+
+//update post by id
+router.put('/updatePost', async (req, res) => {
+
+    try {
+        console.log(req.body._id);
+
+        const post = await Post.updateOne({
+            _id: req.body._id
+        }, {
+            $set: {
+                imgTitle: req.body.imgTitle,
+                imgDesc: req.body.imgDesc,
+                imgTag: req.body.imgTag,
+                location: req.body.location,
+                bestTimeToVisit: req.body.bestTimeToVisit,
+                expenseToConsider: req.body.expenseToConsider,
+            }
         })
 
         res.json(post)
@@ -165,6 +218,7 @@ router.get('/getPost', async (req, res) => {
         })
     }
 })
+
 
 //add user 
 router.post('/addUser', async (req, res) => {
@@ -227,6 +281,39 @@ router.put('/updateUserInfo', async (req, res) => {
         console.log(error.message)
     }
 
+})
+
+//get user Admin DashBoard details
+router.get('/getAdminDashBoardDetails', async (req, res) => {
+
+    try {
+
+        const post = await Post.find()
+
+        const user = await User.find()
+
+        const maleUser = await User.find({
+            sex: "Male"
+        })
+
+        const verifiedPost = await Post.find({
+            isVerified: true
+        })
+
+        const femaleUser = user.length - maleUser.length
+
+        res.json({
+            "numberOfPosts": post.length,
+            "numberOfUsers": user.length,
+            "numberOfMaleUsers": maleUser.length,
+            "numberofFemaleUsers": femaleUser,
+            "numberVerifiedPosts": verifiedPost.length
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        })
+    }
 })
 
 //get user by emailId

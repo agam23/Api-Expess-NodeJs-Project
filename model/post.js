@@ -14,9 +14,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imgLike: {
+    imgViews: {
         type: Number,
-        required: true
+        required: true,
+        default: 0
 
     },
     imgDesc: {

@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     },
     bio: {
         type: String
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 })
 
